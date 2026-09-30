@@ -124,7 +124,7 @@
     "use strict";
 
    
-    var API_BASE = "https://unjedbenin.onrender.com/";
+    var API_BASE = "https://unjedbenin.onrender.com";
 
     var loginPanel = document.getElementById("admin-login");
     var spacePanel = document.getElementById("admin-space");
@@ -207,7 +207,7 @@
       }
       posts.forEach(function (post) {
         var card = document.createElement("div");
-       card.className = "card";
+       card.className = "card.reveal";
 
         var mediaHtml = "";
         if (post.file_url) {
