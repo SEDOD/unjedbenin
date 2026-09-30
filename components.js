@@ -22,7 +22,7 @@
     { href: "index.html", fr: "Accueil", en: "Home" },
     { href: "presentation.html", fr: "Présentation", en: "About" },
     { href: "projets.html", fr: "Nos Projets &amp; Activités", en: "Our Projects &amp; Activities" },
-    { href: "actualites.html", fr: "Actualités &amp; Événements", en: "News &amp; Events" },
+    { href: "actualites.html", fr: "Actualités", en: "News" },
     { href: "adhesion.html", fr: "Adhésion", en: "Membership" },
     { href: "partenariats.html", fr: "Partenariats", en: "Partnerships" },
     { href: "multimedia.html", fr: "Multimédia", en: "Media" },
@@ -189,7 +189,7 @@
     if (yr) yr.textContent = new Date().getFullYear();
 
     // Formulaire d'abonnement (footer) -> appelle le backend
-    // ⚠️ A CONFIGURER : même adresse que dans administration.html
+
     const SUBSCRIBE_API_BASE = "https://VOTRE-USERNAME.pythonanywhere.com";
     const subForm = document.getElementById("footer-subscribe-form");
     if (subForm) {
