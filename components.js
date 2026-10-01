@@ -190,7 +190,7 @@
 
     // Formulaire d'abonnement (footer) -> appelle le backend
 
-    const SUBSCRIBE_API_BASE = https://unjedbenin.onrender.com/";
+    const SUBSCRIBE_API_BASE = "https://unjedbenin.onrender.com";
     const subForm = document.getElementById("footer-subscribe-form");
     if (subForm) {
       subForm.addEventListener("submit", (e) => {
