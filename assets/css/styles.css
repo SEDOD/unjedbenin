@@ -2881,3 +2881,9 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   .hero-content p { font-size: 0.98rem; text-wrap: pretty; }
   .hero-btns { gap: 0.7rem; }
 }
+
+/* Centrage du contenu hero sur mobile */
+@media (max-width: 560px) {
+  .hero-content-inner { text-align: center; }
+  .hero-content p { margin-inline: auto; max-width: 34ch; }
+}
