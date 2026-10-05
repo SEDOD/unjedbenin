@@ -60,18 +60,18 @@
   const CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
   function buildHeader() {
-    const links = NAV.map((n) => {
+    const links = NAV.map((n, idx) => {
       if (n.children) {
         const subs = n.children.map(
           (c) => `<a href="${c.href}" data-en="${c.en}">${c.fr}</a>`
         ).join("");
-        return `<div class="nav-group">` +
+        return `<div class="nav-group" style="--i:${idx}">` +
           `<button type="button" class="nav-toggle" aria-expanded="false" aria-haspopup="true">` +
             `<span data-en="${n.label_en}">${n.label_fr}</span>${CARET}</button>` +
           `<div class="nav-sub">${subs}</div></div>`;
       }
-      return `<a href="${n.href}" data-en="${n.en}">${n.fr}</a>`;
-    }).join("") + `<a href="adhesion.html" class="btn btn-green nav-cta-mobile" data-en="Join Us">Devenir membre</a>`;
+      return `<a href="${n.href}" data-en="${n.en}" style="--i:${idx}">${n.fr}</a>`;
+    }).join("") + `<a href="adhesion.html" class="btn btn-green nav-cta-mobile" data-en="Join Us" style="--i:${NAV.length}">Devenir membre</a>`;
 
     // Inject Font Awesome if not already present
     if (!document.querySelector('link[href*="font-awesome"]')) {

@@ -2814,3 +2814,39 @@ body.nav-open { overflow: hidden; }
 @media (max-width: 940px) {
   .main-nav > a.nav-cta-mobile { border-bottom: 0; border-radius: 999px; }
 }
+
+/* ============================================================
+   v1.8 — drawer : voile clair flouté SOUS le menu + ouverture en cascade
+   (corrige le voile sombre qui recouvrait le panneau : l''overlay
+   vit dans body tandis que le drawer vit dans le header z-1000)
+   ============================================================ */
+:root { --scrim: rgba(255, 255, 255, 0.55); }
+html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
+.nav-overlay {
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+@media (max-width: 940px) {
+  .nav-overlay { z-index: 999; }
+  .main-nav {
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.18);
+    transition: transform 0.38s cubic-bezier(0.22, 0.9, 0.28, 1),
+                visibility 0s linear 0.38s;
+  }
+  .main-nav.open {
+    transition: transform 0.45s cubic-bezier(0.22, 0.9, 0.24, 1.02);
+  }
+  /* Cascade : chaque entrée glisse à son tour */
+  .main-nav.open > .drawer-head,
+  .main-nav.open > a,
+  .main-nav.open > .nav-group {
+    animation: drawerIn 0.5s var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 50ms + 80ms);
+  }
+}
+@keyframes drawerIn {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: none; }
+}
