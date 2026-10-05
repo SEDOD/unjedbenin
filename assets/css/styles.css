@@ -2929,3 +2929,59 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   }
   .hero-content h1 span { display: block; }
 }
+
+/* ============================================================
+   v2.1 — hero mobile adapté de la maquette (badge, titre serif,
+   boutons rectangulaires, voile neutre)
+   ============================================================ */
+@media (max-width: 560px) {
+  .hero-slide::after {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+  }
+  .hero-eyebrow {
+    background: var(--yellow);
+    color: #1a1a1a;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    border-radius: 50px;
+    border-color: transparent;
+    max-width: 90%;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  .hero-content h1 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 5px;
+  }
+  .hero-content h1 span {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 900;
+  }
+  .hero-content p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-width: 90%;
+    opacity: 0.9;
+    margin-bottom: 30px;
+  }
+  .hero-btns {
+    width: 100%;
+    max-width: 280px;
+    margin-inline: auto;
+    gap: 15px;
+  }
+  .hero-btns .btn {
+    width: 100%;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin: 0;
+  }
+  .hero-btns .btn-outline-light:hover { background: #fff; color: var(--green); }
+}
