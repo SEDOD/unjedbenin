@@ -440,8 +440,14 @@ def download_post_pdf(post_id):
     post = db.session.get(Post, post_id)
     if not post or not post.file_url:
         return jsonify({"error": "Fichier introuvable"}), 404
-        
+    # Un fichier "members" n'est téléchargeable que par un admin connecté.
+    # On répond 404 (et non 401/403) pour ne pas révéler son existence.
+    if post.visibility != "public" and not session.get("admin_id"):
+        return jsonify({"error": "Fichier introuvable"}), 404
+
     file_path = os.path.join(BASE_DIR, post.file_url.lstrip("/"))
+    if not os.path.exists(file_path):
+        return jsonify({"error": "Fichier introuvable"}), 404
     return send_file(
         file_path,
         as_attachment=True,

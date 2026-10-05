@@ -586,10 +586,29 @@
     els.forEach((el) => obs.observe(el));
   }
 
+  /* ---------- Dissuasion copie/inspection (clic droit, F12, Ctrl+U…) ----------
+     NOTE HONNÊTE : ceci ne PROTÈGE PAS le code — le HTML/JS/CSS envoyé au
+     navigateur reste lisible (curl, JS désactivé, view-source:…). La vraie
+     sécurité est côté serveur (sessions, allowlist CORS, rate-limit, droits
+     par route — voir backend/app.py). Ce garde-fou gêne juste les curieux. */
+  function setupGuard() {
+    document.addEventListener("contextmenu", function (ev) {
+      ev.preventDefault();
+    });
+    document.addEventListener("keydown", function (ev) {
+      var k = (ev.key || "").toLowerCase();
+      var ctrl = ev.ctrlKey || ev.metaKey;
+      if (ev.key === "F12") { ev.preventDefault(); return; }
+      if (ctrl && ev.shiftKey && (k === "i" || k === "j" || k === "c")) { ev.preventDefault(); return; }
+      if (ctrl && (k === "u" || k === "s")) { ev.preventDefault(); }
+    });
+  }
+
   /* ---------- Init ---------- */
   function init() {
     // Anti-FOUC thème : déjà appliqué en <head> via script inline si présent.
     setupGlobalToggles();
+    setupGuard();
     setupMobileMenu();
     heroSlider();
     setupCookies();

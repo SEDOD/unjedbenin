@@ -25,18 +25,6 @@
     { href: "contact.html", fr: "Contact", en: "Contact" },
   ];
 
-  const FOOTER_LINKS = [
-    { href: "index.html", fr: "Accueil", en: "Home" },
-    { href: "presentation.html", fr: "Présentation", en: "About" },
-    { href: "projets.html", fr: "Nos Projets &amp; Activités", en: "Our Projects &amp; Activities" },
-    { href: "actualites.html", fr: "Actualités", en: "News" },
-    { href: "adhesion.html", fr: "Adhésion", en: "Membership" },
-    { href: "partenariats.html", fr: "Partenariats", en: "Partnerships" },
-    { href: "multimedia.html", fr: "Multimédia", en: "Media" },
-    { href: "contact.html", fr: "Contact", en: "Contact" },
-    { href: "presentation.html#organigramme", fr: "Notre Équipe &amp; Organigramme Institutionnel", en: "Our Team &amp; Institutional Org Chart" },
-  ];
-
   const SOCIALS = {
     facebook: "https://www.facebook.com/profile.php?id=61586752325666",
     youtube: "https://www.youtube.com/@UNJED-BENIN",
@@ -119,70 +107,124 @@
   }
 
   function buildFooter() {
-    const quick = FOOTER_LINKS.map(
-      (n) => `<li><a href="${n.href}" data-en="${n.en}">${n.fr}</a></li>`
-    ).join("");
+    const TOOLTIPS = {
+      facebook: "Facebook", youtube: "YouTube", linkedin: "LinkedIn",
+      x: "X (Twitter)", tiktok: "TikTok", instagram: "Instagram", whatsapp: "WhatsApp",
+    };
 
     const socialLinks = Object.keys(SOCIALS)
       .map(
         (key) =>
-          `<a href="${SOCIALS[key]}" target="_blank" rel="noopener" aria-label="${key}">${ICONS[key]}</a>`
+          `<a href="${SOCIALS[key]}" target="_blank" rel="noopener" aria-label="${key}" data-tooltip="${TOOLTIPS[key] || key}">${ICONS[key]}</a>`
       )
       .join("");
 
     return `
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div>
-            <div class="footer-brand">
-              <img src="public/images/logo.jpeg" alt="Logo UNJED-BENIN" />
-              <span class="brand-name">UNJED-BENIN</span>
+    <div class="footer-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C320,80 640,0 960,40 C1120,60 1280,50 1440,40 L1440,80 L0,80 Z" fill="#0a0e14"/>
+      </svg>
+    </div>
+    <footer class="site-footer footer-v3">
+      <div class="footer-glow-1" aria-hidden="true"></div>
+      <div class="footer-glow-2" aria-hidden="true"></div>
+      <div class="footer-container">
+        <div class="newsletter-banner reveal">
+          <div class="newsletter-banner-text">
+            <span class="newsletter-badge">★ <span data-en="New">Nouveau</span></span>
+            <h3 data-en="Stay informed about our actions">Restez informé de nos actions</h3>
+            <p data-en="Receive our news, events and opportunities directly in your inbox.">Recevez nos actualités, événements et opportunités directement dans votre boîte mail.</p>
+          </div>
+          <div class="newsletter-form-wrap">
+            <form id="footer-subscribe-form" class="newsletter-form-desktop" novalidate>
+              <label class="sr-only" for="footer-subscribe-email">Votre email</label>
+              <input type="email" id="footer-subscribe-email" name="email" required autocomplete="email" inputmode="email" placeholder="votre@email.com" data-en-placeholder="your@email.com" aria-label="Votre email" />
+              <button type="submit" data-en="Subscribe">S'abonner</button>
+            </form>
+            <p id="footer-subscribe-msg" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="footer-main">
+          <div class="footer-brand reveal">
+            <div class="footer-logo">
+              <img src="public/images/logo.jpeg" alt="Logo UNJED-BENIN" class="footer-logo-img" loading="lazy" />
+              <div class="footer-logo-text">
+                <h2>UNJED-<span>BENIN</span></h2>
+                <div class="tagline">Inclusion · Solidarité · Excellence</div>
+              </div>
             </div>
-            <p data-en="The National Union of Engaged Youth for the Development of Benin is an apolitical and secular organization dedicated to training, mobilizing and empowering Beninese youth.">
+            <p class="footer-description" data-en="The National Union of Engaged Youth for the Development of Benin is an apolitical and secular organization dedicated to training, mobilizing and empowering Beninese youth.">
               L'Union Nationale des Jeunes Engagés pour le Développement du Bénin est une organisation apolitique et laïque, dédiée à la formation, la mobilisation et la valorisation de la jeunesse béninoise.
             </p>
-            <div class="socials">${socialLinks}</div>
-            <form id="footer-subscribe-form" style="margin-top:18px;display:flex;gap:6px;flex-wrap:wrap;">
-              <input type="email" id="footer-subscribe-email" required placeholder="Votre email" data-en-placeholder="Your email"
-                style="flex:1;min-width:160px;padding:9px 12px;border-radius:8px;border:1px solid var(--border);background:var(--card-bg);color:var(--text);font-size:0.85rem;" />
-              <button type="submit" class="btn btn-green" style="padding:9px 14px;font-size:0.85rem;" data-en="Subscribe">S'abonner</button>
-            </form>
-            <p id="footer-subscribe-msg" style="font-size:0.78rem;margin-top:6px;display:none;"></p>
+            <div class="social-wrapper">
+              <span class="social-label" data-en="Follow us">Suivez-nous</span>
+              <div class="social-icons">${socialLinks}</div>
+            </div>
           </div>
-          <div>
-            <h4 data-en="Quick links">Liens rapides</h4>
-            <ul class="footer-links">${quick}</ul>
-          </div>
-          <div>
-            <h4 data-en="Resources">Ressources</h4>
-            <ul class="footer-links">
+          <nav class="footer-nav-group reveal" aria-label="Découvrir">
+            <h3 data-en="Discover">Découvrir</h3>
+            <ul>
               <li><a href="presentation.html" data-en="Our history">Notre histoire</a></li>
-              <li><a href="multimedia.html" data-en="Documents">Documents</a></li>
-              <li><a href="actualites.html" data-en="Press releases">Communiqués</a></li>
+              <li><a href="presentation.html" data-en="About">Présentation</a></li>
+              <li><a href="presentation.html#organigramme" data-en="Our team">Notre équipe</a></li>
+              <li><a href="presentation.html#organigramme" data-en="Org chart">Organigramme</a></li>
+              <li><a href="statuts.html" data-en="Statutes">Statuts</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-nav-group reveal" aria-label="Agir">
+            <h3 data-en="Act">Agir</h3>
+            <ul>
+              <li><a href="adhesion.html" data-en="Membership">Adhésion</a></li>
+              <li><a href="projets.html" data-en="Our projects">Nos projets</a></li>
+              <li><a href="partenariats.html" data-en="Partnerships">Partenariats</a></li>
               <li><a href="adhesion.html" data-en="Become a member">Devenir membre</a></li>
               <li><a href="jeu.html" data-en="Educational game">Jeu éducatif</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-nav-group reveal" aria-label="Ressources">
+            <h3 data-en="Resources">Ressources</h3>
+            <ul>
+              <li><a href="actualites.html" data-en="News">Actualités</a></li>
+              <li><a href="multimedia.html" data-en="Documents">Documents</a></li>
+              <li><a href="actualites.html" data-en="Press releases">Communiqués</a></li>
+              <li><a href="multimedia.html" data-en="Media">Multimédia</a></li>
               <li><a href="administration.html" data-en="Administration">Administration</a></li>
-              <li><a href="statuts.html" data-en="Statutes">Statuts</a></li>
-              <li><a href="politique-confidentialite.html" data-en="Privacy policy">Politique de confidentialité</a></li>
             </ul>
-          </div>
-          <div>
-            <h4 data-en="Contact">Contact</h4>
-            <ul class="footer-contact">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Zogbadjè, Abomey-Calavi, Bénin</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><a href="https://wa.me/229160752129" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">(+229) 01 60 75 21 29</a><br><a href="https://wa.me/229160137141" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">(+229) 01 60 13 71 41</a></span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>unjedbenin@gmail.com</span></li>
+          </nav>
+          <div class="footer-contact reveal">
+            <h3 data-en="Contact us">Nous contacter</h3>
+            <ul class="contact-list">
+              <li>
+                <div class="contact-icon location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="contact-info"><span class="label" data-en="Address">Adresse</span><span class="value">Zogbadjè, Abomey-Calavi, Bénin</span></div>
+              </li>
+              <li>
+                <div class="contact-icon phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                <div class="contact-info"><span class="label" data-en="Phone">Téléphone</span><span class="value footer-phones"><a href="https://wa.me/229160752129" target="_blank" rel="noopener">(+229) 01 60 75 21 29</a><a href="https://wa.me/229160137141" target="_blank" rel="noopener">(+229) 01 60 13 71 41</a></span></div>
+              </li>
+              <li>
+                <div class="contact-icon email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                <div class="contact-info"><span class="label">Email</span><span class="value footer-mail">unjedbenin@gmail.com</span></div>
+              </li>
             </ul>
           </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="container">
-          © <span id="year"></span> <strong>UNJED-BENIN</strong> — <span data-en="Inclusion, Solidarity, Excellence. All rights reserved.">Inclusion, Solidarité, Excellence. Tous droits réservés.</span>
+        <div class="footer-bottom">
+          <div class="footer-bottom-left">
+            <p>© <span id="year"></span> <span>UNJED-BENIN</span> — <span data-en="All rights reserved.">Tous droits réservés.</span></p>
+          </div>
+          <div class="footer-bottom-links">
+            <a href="politique-confidentialite.html" data-en="Privacy">Confidentialité</a>
+            <a href="statuts.html" data-en="Statutes">Statuts</a>
+            <a href="administration.html" data-en="Administration">Administration</a>
+            <a href="contact.html" data-en="Contact">Contact</a>
+          </div>
         </div>
       </div>
-    </footer>`;
+    </footer>
+    <button class="back-to-top" type="button" aria-label="Retour en haut" data-back-to-top>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+    </button>`;
   }
 
   function buildCookie() {
@@ -260,6 +302,44 @@
             msg.textContent = "Impossible de joindre le serveur pour le moment.";
           });
       });
+    }
+
+    // Bouton retour en haut (injecté avec le footer premium)
+    var toTop = document.querySelector("[data-back-to-top]");
+    if (toTop) {
+      var onScrollTop = function () {
+        toTop.classList.toggle("visible", window.scrollY > 400);
+      };
+      onScrollTop();
+      window.addEventListener("scroll", onScrollTop, { passive: true });
+      toTop.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // Reveal du footer : autonome (ne dépend pas de l'ordre
+    // d'exécution avec script.js). + filet de sécurité : rien
+    // ne doit rester invisible si l'observateur ne se déclenche pas.
+    var footerReveals = document.querySelectorAll(".footer-v3 .reveal");
+    var showFooterEl = function (el) { el.classList.add("in", "visible"); };
+    if (footerReveals.length) {
+      if ("IntersectionObserver" in window) {
+        var fObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry, i) {
+            if (entry.isIntersecting) {
+              (function (el, d) {
+                setTimeout(function () { showFooterEl(el); }, d);
+              })(entry.target, i * 100);
+              fObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+        footerReveals.forEach(function (el) { fObs.observe(el); });
+      }
+      // Filet de sécurité : force l'affichage après 1,6 s.
+      setTimeout(function () {
+        footerReveals.forEach(showFooterEl);
+      }, 1600);
     }
   });
 })();
