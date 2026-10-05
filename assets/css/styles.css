@@ -2850,3 +2850,13 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   from { opacity: 0; transform: translateX(28px); }
   to { opacity: 1; transform: none; }
 }
+
+/* ============================================================
+   v1.9 — bandeaux CTA : lisibilité garantie sur fond vert
+   (eyebrow jaune vif, texte blanc, bouton jaune contrasté)
+   ============================================================ */
+.cta-band .eyebrow { color: var(--yellow); }
+.cta-band .btn-yellow { color: #16201b; }
+@media (max-width: 700px) {
+  .cta-split { flex-direction: column; text-align: center; justify-content: center; }
+}
