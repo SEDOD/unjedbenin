@@ -2887,3 +2887,11 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   .hero-content-inner { text-align: center; }
   .hero-content p { margin-inline: auto; max-width: 34ch; }
 }
+
+/* Hero mobile : titre et texte lisibles sur toute photo (ombres + voile renforcé) */
+@media (max-width: 560px) {
+  .hero-content h1, .hero-content p { text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6); }
+  .hero-slide::after {
+    background: linear-gradient(180deg, rgba(10, 25, 16, 0.62) 0%, rgba(10, 25, 16, 0.5) 40%, rgba(6, 42, 20, 0.84) 100%);
+  }
+}
