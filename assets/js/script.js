@@ -211,9 +211,15 @@
       timer = setInterval(next, 5000);
     };
     startTimer();
+    // Fonction propre de navigation : stoppe le minuteur, affiche, relance.
+    const goToSlide = (i) => { clearInterval(timer); show(i); startTimer(); };
     dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { clearInterval(timer); show(i); startTimer(); });
+      dot.addEventListener('click', () => goToSlide(i));
     });
+    // API publique : changer de slide depuis la console ou un autre script.
+    // Ex. : window.UNJED.goToSlide(2)
+    window.UNJED = window.UNJED || {};
+    window.UNJED.goToSlide = goToSlide;
     // Pause au survol / focus pour la lisibilité
     const hero = document.querySelector('.hero');
     if (hero) {
