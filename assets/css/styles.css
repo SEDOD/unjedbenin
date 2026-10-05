@@ -2860,3 +2860,24 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
 @media (max-width: 700px) {
   .cta-split { flex-direction: column; text-align: center; justify-content: center; }
 }
+
+/* ============================================================
+   v2.0 — hero mobile : lisibilité premium (pastille, titre équilibré)
+   ============================================================ */
+@media (max-width: 560px) {
+  .hero { min-height: 0; }
+  .hero-content { padding: 4.5rem 20px 4rem; }
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    padding: 0.5rem 0.95rem;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+  .hero-content h1 { font-size: 2.05rem; text-wrap: balance; }
+  .hero-content p { font-size: 0.98rem; text-wrap: pretty; }
+  .hero-btns { gap: 0.7rem; }
+}
