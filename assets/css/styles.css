@@ -2907,3 +2907,14 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
     backdrop-filter: none;
   }
 }
+
+/* Hero mobile : centrage garanti par flex (pastille, titre, texte, boutons) */
+@media (max-width: 560px) {
+  .hero-content-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-content-inner > * { text-align: center; }
+}
