@@ -7,12 +7,15 @@
   <title>Multimédia — UNJED-BENIN</title>
   <meta name="description" content="Galerie photo et vidéo de l'UNJED-BENIN : revivez nos formations, actions de solidarité, événements culturels et moments forts." />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="Multimedia">Multimédia</span></div>
@@ -81,15 +84,18 @@
   </main>
 
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
   <script>
   (function () {
     "use strict";
 
-    
-    var API_BASE = "https://unjedbenin.onrender.com/";
-    if (API_BASE.indexOf("unjedbenin") !== -1) return; // backend pas encore branché
+    var API_BASE = (window.UNJED && typeof window.UNJED.apiBase === "function" && window.UNJED.apiBase())
+      || (window.UNJED_CONFIG && window.UNJED_CONFIG.API_BASE)
+      || "https://unjedbenin.onrender.com";
+    API_BASE = API_BASE.replace(/\/$/, "");
 
     function youtubeEmbedUrl(url) {
       var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
@@ -109,6 +115,8 @@
           var img = document.createElement("img");
           img.src = API_BASE + p.file_url;
           img.alt = p.title;
+          img.loading = "lazy";
+          img.decoding = "async";
           var cap = document.createElement("figcaption");
           cap.textContent = p.title;
           fig.appendChild(img);

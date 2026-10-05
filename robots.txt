@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /administration.html
+
+Sitemap: https://sedod.github.io/unjedbenin/sitemap.xml

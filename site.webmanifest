@@ -1,0 +1,14 @@
+{
+  "name": "UNJED-BENIN",
+  "short_name": "UNJED",
+  "description": "Union Nationale des Jeunes Engagés pour le Développement du Bénin",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a8a3f",
+  "theme_color": "#0a8a3f",
+  "lang": "fr",
+  "icons": [
+    { "src": "public/images/logo.jpeg", "sizes": "192x192", "type": "image/jpeg" },
+    { "src": "public/images/logo.jpeg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}

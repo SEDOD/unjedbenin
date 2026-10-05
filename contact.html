@@ -7,12 +7,15 @@
   <title>Contact — UNJED-BENIN</title>
   <meta name="description" content="Contactez l'UNJED-BENIN. Écrivez-nous, appelez-nous ou rendez-nous visite pour collaborer ou rejoindre l'Union." />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="Contact">Contact</span></div>
@@ -55,18 +58,19 @@
             <input type="hidden" name="subject" value=" Nouvelle demande d'adhésion — UNJED-BÉNIN" />
             <input type="hidden" name="from_name" value="Formulaire Adhésion UNJED" />
             <input type="hidden" name="redirect" value="false" />
+            <div class="hp-field" aria-hidden="true"><label>Ne pas remplir ce champ<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
               <div class="field">
                 <label for="cname" data-en="Full name">Nom complet</label>
-                <input type="text" id="cname" name="cname" required />
+                <input type="text" id="cname" name="cname" autocomplete="name" required />
               </div>
               <div class="form-row">
                 <div class="field">
                   <label for="cemail" data-en="Email">Email</label>
-                  <input type="email" id="cemail" name="cemail" required />
+                  <input type="email" id="cemail" name="cemail" autocomplete="email" required />
                 </div>
                 <div class="field">
                   <label for="cphone" data-en="Phone">Téléphone</label>
-                  <input type="tel" id="cphone" name="cphone" />
+                  <input type="tel" id="cphone" name="cphone" autocomplete="tel" inputmode="tel" />
                 </div>
               </div>
               <div class="field">
@@ -86,7 +90,7 @@
     </section>
   </main>
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>`n  <script src="assets/js/api-client.js"></script>`n  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

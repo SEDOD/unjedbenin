@@ -1,0 +1,25 @@
+# Dépendances et environnements
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.db
+*.sqlite3
+instance/
+
+# Uploads locaux (recréés au lancement ; jamais versionnés)
+backend/static/uploads/*
+!backend/static/uploads/.gitkeep
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# Temporaires
+*.log
+*.tmp

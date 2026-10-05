@@ -7,12 +7,15 @@
   <title>Adhésion — UNJED-BENIN</title>
   <meta name="description" content="Rejoignez l'UNJED-BENIN. Devenez membre actif et engagez-vous pour le développement de la jeunesse béninoise." />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="Membership">Adhésion</span></div>
@@ -234,6 +237,7 @@
             <input type="hidden" name="from_name" value="Formulaire Adhésion UNJED" />
             <input type="hidden" name="redirect" value="false" />
             <input type="hidden" name="tarif_applique" id="tarif_applique" value="" />
+            <div class="hp-field" aria-hidden="true"><label>Ne pas remplir ce champ<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
 
             <div class="field">
               <label data-en="Membership type">Type d'adhésion</label>
@@ -259,21 +263,21 @@
             <div class="form-row">
               <div class="field">
                 <label for="firstname" data-en="First name">Prénom</label>
-                <input type="text" id="firstname" name="firstname" required />
+                <input type="text" id="firstname" name="firstname" autocomplete="given-name" required />
               </div>
               <div class="field">
                 <label for="lastname" data-en="Last name">Nom</label>
-                <input type="text" id="lastname" name="lastname" required />
+                <input type="text" id="lastname" name="lastname" autocomplete="family-name" required />
               </div>
             </div>
             <div class="form-row">
               <div class="field">
                 <label for="email" data-en="Email">Email</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="email" autocomplete="email" required />
               </div>
               <div class="field">
                 <label for="phone" data-en="Phone">Téléphone</label>
-                <input type="tel" id="phone" name="phone" placeholder="+229 ..." required />
+                <input type="tel" id="phone" name="phone" placeholder="+229 ..." autocomplete="tel" inputmode="tel" required />
               </div>
             </div><div class="form-row">
   <div class="field">
@@ -374,8 +378,8 @@
   </main>
 
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>`n  <script src="assets/js/api-client.js"></script>`n  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
   <script>
     function updateTarif() {
       var box = document.getElementById("tarif-box");

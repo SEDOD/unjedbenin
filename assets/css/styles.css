@@ -1,6 +1,18 @@
 /* ========================================
    UNJED-BENIN - Design System
    Couleurs du drapeau beninois : vert, jaune, rouge + blanc
+   ----------------------------------------
+   SOMMAIRE (recherche par mot-clé) :
+   - Tokens (:root) et mode sombre (html[data-theme])
+   - Base : reset, layout (.container, .section), boutons (.btn)
+   - HEADER (.site-header, .main-nav, .nav-sub, .menu-toggle)
+   - HERO (.hero, slider, indicateurs)
+   - Cartes et grilles (.card, .grid, .quicklink, .news-card, .stat-card)
+   - Pages internes (.page-hero, .split, .quote-card, organigramme, galerie)
+   - Formulaires (.form-card, .field) et contact
+   - Bandeau CTA, footer, cookies, divers (.pill, .reveal, partenaires)
+   - Correctifs v1.1 -> v1.6 en FIN de fichier (ne pas dupliquer :
+     toute rustine s'ajoute là, datée et commentée en français)
    ======================================== */
 
 /* ---------- Fonts ---------- */
@@ -2246,3 +2258,506 @@ h3, h4, h5 {
   z-index: 0;
 }
 .hero > *, .page-hero > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   CORRECTIFS AUDIT 2026 � couche de compatibilit� (charg�e en dernier)
+   But : r�concilier les 2 design systems fusionn�s sans r��crire
+   les 2200 lignes existantes. Ne pas dupliquer : surcharger ici.
+   ============================================================ */
+
+/* 1. Variables manquantes utilis�es par l'ancien syst�me (sinon = transparent/cass�) */
+:root {
+  --bg-alt: var(--surface-2);
+  --card-bg: var(--surface);
+  --nav-bg: var(--header-bg);
+  --nav-shadow: rgba(16, 32, 22, 0.08);
+  --green-mid: #3aa75f;
+  --gray-900: #1c2420;
+  --yellow-light: #fcefae;
+  --green-dark: #066a2f;
+}
+html[data-theme="dark"] {
+  --nav-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Lien d'�vitement (a11y, inject� par components.js) */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 2000;
+  background: var(--green); color: #fff; font-weight: 700;
+  padding: 0.7rem 1.2rem; border-radius: 0 0 10px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* 3. Focus visible partout (clavier) */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgba(252, 209, 22, 0.85);
+  outline-offset: 2px;
+}
+
+/* 4. Boutons outline : version claire par d�faut (pages � fond clair).
+   Pour le hero sombre, utiliser .btn-outline-light. */
+.btn-outline {
+  border-color: var(--green);
+  color: var(--green);
+  background: transparent;
+}
+.btn-outline:hover { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-outline-light {
+  border: 2px solid #fff; color: #fff; background: transparent;
+}
+.btn-outline-light:hover { background: #fff; color: var(--green); }
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); }
+
+/* 5. Hero : un seul offset (le body a d�j� padding-top:76px).
+   L'ancien .hero ajoutait margin-top:70px -> double d�calage + 100vh trop grand. */
+.hero { margin-top: 0; min-height: clamp(480px, 82vh, 760px); height: auto; }
+.hero-content { position: relative; z-index: 2; padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(4rem, 8vw, 6rem); }
+
+/* 6. Reveal : les 2 conventions (.in et .visible) doivent marcher */
+.reveal.in, .reveal.visible { opacity: 1; transform: none; }
+
+/* 7. Cookie : on garde la version "carte flottante" (1�re d�finition) */
+.cookie-banner {
+  left: 1rem; right: 1rem; bottom: 1rem; top: auto;
+  background: var(--surface); color: var(--text);
+  justify-content: space-between;
+}
+.cookie-banner p { color: var(--text-muted); }
+.cookie-banner.hidden { display: none !important; }
+
+/* 8. Footer : grille large par d�faut (2e syst�me), stable en responsive */
+.footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; }
+
+/* 9. Images : jamais de trou de mise en page + lazy par d�faut */
+img { height: auto; }
+.news-card .news-img img, .gallery img, .quicklink img { background: var(--green-light); }
+
+/* 10. Contraste : jaune fonc� lisible sur blanc (WCAG AA) */
+:root { --yellow-dark: #9a7b00; }
+.btn-yellow { color: #16201b; }
+
+/* 11. Formulaires : bouton d�sactiv� visible pendant l'envoi r�el */
+.btn[disabled], .btn[data-busy] { opacity: 0.65; cursor: wait; transform: none; }
+
+/* 12. Tableaux admin �ventuels : scroll horizontal sur mobile */
+.table-wrap { overflow-x: auto; }
+@media (max-width: 560px) {
+  .section { padding: 3.5rem 0; }
+  .form-card { padding: 1.4rem; }
+}
+
+/* ============================================================
+   CORRECTIFS AUDIT v1.2 � cookies opaques + responsive + standards ONG
+   ============================================================ */
+
+/* ---- 1. Banni�re cookies : 100% opaque, toujours au-dessus ---- */
+.cookie-banner {
+  position: fixed;
+  z-index: 9999;
+  left: 1rem; right: 1rem; bottom: 1rem; top: auto;
+  background-color: #ffffff;
+  background-image: none;
+  opacity: 1;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  padding: 1.1rem 1.25rem;
+  display: none;
+  gap: 1rem;
+  align-items: center;
+  max-width: 720px;
+  margin-inline: auto;
+  isolation: isolate;
+}
+html[data-theme="dark"] .cookie-banner { background-color: #161e1a; }
+.cookie-banner.show { display: flex; flex-wrap: wrap; }
+.cookie-banner p {
+  flex: 1 1 260px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.cookie-banner p strong { color: var(--text); }
+.cookie-link { color: var(--green); font-weight: 700; text-decoration: underline; white-space: nowrap; }
+.cookie-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.cookie-banner .btn { padding: 0.65rem 1.25rem; font-size: 0.85rem; text-transform: none; letter-spacing: 0.02em; }
+@media (max-width: 640px) {
+  .cookie-banner {
+    left: 0.6rem; right: 0.6rem; bottom: 0.6rem;
+    border-radius: 16px;
+    max-height: 52vh;
+    overflow-y: auto;
+  }
+  .cookie-actions { width: 100%; }
+  .cookie-actions .btn { flex: 1 1 0; justify-content: center; }
+}
+
+/* ---- 2. Pastilles hero : zone tactile 44px (visuel 12px) ---- */
+.hero-dot { position: relative; width: 12px; height: 12px; }
+.hero-dot::after { content: ""; position: absolute; inset: -16px; }
+
+/* ---- 3. Corps d'article inject� par actualites.html ---- */
+.news-card .card-body { padding: 1.25rem 1.4rem; }
+.news-card .card-body h3 { font-size: 1.05rem; margin: 0.5rem 0; }
+.news-card .card-body p { font-size: 0.92rem; color: var(--text-muted); }
+
+/* ---- 4. Anti-spam honeypot (adhesion + contact) ---- */
+.hp-field { position: absolute !important; left: -9999px !important; top: auto !important; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+
+/* ---- 5. Durcissement responsive global ---- */
+iframe, video, table { max-width: 100%; }
+.footer-contact span, .footer-links a, .contact-info p { overflow-wrap: anywhere; }
+.page-hero { overflow-wrap: break-word; }
+@media (max-width: 940px) {
+  .split-img { margin-inline: auto; }
+  .feature-news-body { padding: 1.4rem; }
+}
+@media (max-width: 480px) {
+  .hero-content-inner { padding-inline: 0.25rem; }
+  .cta-band { border-radius: 18px; }
+  .org-members-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 380px) {
+  .org-members-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- 6. Impression (dossiers ONG, re�us, statuts) ---- */
+@media print {
+  .site-header, .cookie-banner, .hero-indicators, .menu-toggle,
+  #footer-subscribe-form, .game-tabs, .hero-btns { display: none !important; }
+  body { padding-top: 0; background: #fff; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-slide::after { background: none; }
+  a { text-decoration: underline; }
+}
+
+/* ============================================================
+   CORRECTIFS AUDIT v1.3 � hero visible, pages internes, menu mobile
+   ============================================================ */
+
+/* ---- 1. HERO : hauteur r�elle + fond de repli lisible ---- */
+.hero {
+  background: linear-gradient(135deg, #06421f 0%, #0a8a3f 60%, #0a5a2c 100%);
+  display: flex;
+  align-items: center;
+  min-height: clamp(540px, 88vh, 800px);
+}
+.hero > .hero-slides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(4rem, 9vw, 6.5rem) 24px;
+}
+.hero-content-inner { max-width: 780px; margin: 0 auto; }
+
+/* ---- 2. Pages internes : UN SEUL offset (body padding-top suffit) ---- */
+.page-hero { margin-top: 0; }
+
+/* ---- 3. Header mobile : tout doit tenir � 360px ---- */
+.header-inner { min-width: 0; }
+.brand { min-width: 0; }
+.header-actions { margin-left: auto; flex-shrink: 0; }
+@media (max-width: 560px) {
+  .container { padding-left: 16px; padding-right: 16px; }
+  .brand-name { font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lang-current { display: none; }
+  .lang-btn { width: 36px; padding: 0; justify-content: center; }
+}
+
+/* ---- 4. Menu mobile : drawer fiable + overlay ---- */
+@media (max-width: 940px) {
+  .main-nav {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: min(340px, 86vw);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    background: var(--surface);
+    padding: calc(var(--header-h) + 1rem) 1.25rem 2rem;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(105%);
+    visibility: hidden;
+    transition: transform 0.32s ease, visibility 0s linear 0.32s;
+    overflow-y: auto;
+    z-index: 1001;
+  }
+  .main-nav.open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.32s ease;
+  }
+  .main-nav a { padding: 0.9rem 1rem; font-size: 1rem; border-radius: 10px; }
+  .menu-toggle { display: inline-flex; }
+}
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 20, 14, 0.5);
+  z-index: 1000;
+  border: 0; padding: 0;
+}
+body.nav-open { overflow: hidden; }
+
+/* ---- Compteurs anim�s : chiffres � chasse fixe (pas de tremblement) ---- */
+.stat-num { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   CORRECTIFS v1.4 � navigation � sous-menus, CTA, newsletter, news
+   ============================================================ */
+
+/* ---- 1. Groupes + toggles (base commune desktop/mobile) ---- */
+.nav-group { position: relative; }
+.nav-toggle {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-toggle:hover { background: var(--green-light); color: var(--green); }
+.nav-toggle.active { color: var(--green); }
+.nav-toggle .caret { width: 14px; height: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+
+/* ---- 2. Sous-menu desktop : panneau flottant ---- */
+@media (min-width: 941px) {
+  .nav-sub {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 260px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    z-index: 1002;
+  }
+  .nav-sub::before { /* pont anti-trou pour le survol */
+    content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 10px;
+  }
+  .nav-group:hover > .nav-sub,
+  .nav-group:focus-within > .nav-sub,
+  .nav-group.open > .nav-sub {
+    opacity: 1; visibility: visible; transform: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .nav-group:hover .caret, .nav-group:focus-within .caret, .nav-group.open .caret { transform: rotate(180deg); }
+  .nav-sub a {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    color: var(--text);
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .nav-sub a:hover { background: var(--green-light); color: var(--green); }
+  .nav-sub a.active { background: var(--green-light); color: var(--green); }
+  .nav-cta-mobile { display: none !important; }
+}
+
+/* ---- 3. CTA header desktop ---- */
+.nav-cta {
+  padding: 0.6rem 1.15rem;
+  font-size: 0.82rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+@media (max-width: 1240px) { .nav-cta { display: none; } }
+
+/* ---- 4. Mobile : accord�ons dans le drawer ---- */
+@media (max-width: 940px) {
+  .nav-group { width: 100%; }
+  .main-nav .nav-toggle {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  .nav-group.open .caret { transform: rotate(180deg); }
+  .main-nav .nav-sub {
+    position: static;
+    box-shadow: none;
+    border: 0;
+    border-left: 2px solid var(--green);
+    border-radius: 0;
+    margin: 0 0 0.3rem 1rem;
+    padding: 0.15rem 0 0.15rem 0.5rem;
+    display: none;
+    min-width: 0;
+    opacity: 1; visibility: visible; transform: none;
+  }
+  .nav-group.open > .nav-sub { display: flex; flex-direction: column; }
+  .main-nav .nav-sub a { padding: 0.75rem 0.9rem; font-size: 0.95rem; }
+  .nav-cta-mobile { margin-top: 0.8rem; justify-content: center; }
+}
+
+/* ---- 5. Newsletter (bandeau vert actualit�s) : champ pilule ---- */
+.newsletter-input {
+  flex: 1 1 240px;
+  max-width: 340px;
+  padding: 0.9rem 1.3rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background: #fff;
+  color: #16201b;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.newsletter-input::placeholder { color: #8b9590; }
+.newsletter-input:focus { outline: none; border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(252, 209, 22, 0.45); }
+@media (max-width: 560px) {
+  .newsletter-input { flex: 1 1 100%; max-width: none; }
+}
+
+/* ---- 6. Cartes news blind�es : placeholder + jamais de rognage ---- */
+.news-img {
+  background: linear-gradient(135deg, var(--green-light), var(--surface-2));
+  min-height: 190px;
+}
+.news-img img { position: relative; z-index: 1; }
+.news-body { min-width: 0; min-height: 0; }
+.news-body h3 { overflow: visible; text-wrap: pretty; }
+
+/* ---- 7. Serrage laptop : toggles align�s sur les liens ---- */
+@media (min-width: 941px) and (max-width: 1600px) {
+  .nav-toggle { padding: 0.5rem 0.55rem; font-size: 0.82rem; }
+}
+@media (min-width: 941px) and (max-width: 1240px) {
+  .nav-toggle { padding: 0.5rem 0.4rem; font-size: 0.76rem; }
+}
+
+/* ============================================================
+   v1.5 � section Partenaires : cartes premium + cascade + hover
+   ============================================================ */
+.partners { position: relative; overflow: hidden; }
+.partners::before {
+  content: ""; position: absolute; top: -10%; right: -8%;
+  width: 44%; height: 60%;
+  background: radial-gradient(circle, rgba(252, 209, 22, 0.12), transparent 62%);
+  pointer-events: none;
+}
+.partner-cards { position: relative; z-index: 1; }
+.partner-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.4rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+/* Cascade d''entr�e : d�lai via --i (propri�t� translate r�serv�e au hover) */
+.partner-card.reveal {
+  transition: opacity 0.6s ease calc(var(--i, 0) * 90ms),
+              transform 0.6s ease calc(var(--i, 0) * 90ms),
+              translate 0.3s var(--ease),
+              box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.partner-card:hover {
+  translate: 0 -6px;
+  border-color: var(--green);
+  box-shadow: var(--shadow);
+}
+/* Barre d''accent qui se d�ploie au survol */
+.partner-card::after {
+  content: ""; position: absolute; top: 0; left: 14%; right: 14%; height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--green), var(--yellow));
+  transform: scaleX(0);
+  transition: transform 0.35s var(--ease);
+}
+.partner-card:hover::after { transform: scaleX(1); }
+.partner-ic {
+  width: 60px; height: 60px;
+  border-radius: 18px;
+  background: var(--green-light);
+  color: var(--green);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s var(--ease);
+}
+.partner-ic svg { width: 28px; height: 28px; }
+.partner-card:hover .partner-ic {
+  background: var(--green); color: #fff;
+  transform: rotate(-6deg) scale(1.05);
+}
+.partner-card h3 { font-size: 1.02rem; margin-bottom: 0.3rem; }
+.partner-card p { font-size: 0.87rem; color: var(--text-muted); margin: 0; }
+.partner-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-head); font-weight: 700; font-size: 0.95rem;
+  color: var(--green);
+  position: relative; z-index: 1;
+}
+.partner-cta span { transition: transform 0.25s var(--ease); }
+.partner-cta:hover span { transform: translateX(5px); }
+
+/* ============================================================
+   v1.6 � header pleine largeur : logo au coin, nav a�r�e et pro
+   (remplace les r�gles de serrage 941-1600 pr�c�dentes)
+   ============================================================ */
+@media (min-width: 941px) {
+  .header-inner {
+    max-width: none;
+    padding-inline: clamp(1rem, 2.5vw, 2.25rem);
+    gap: 1.25rem;
+  }
+  .brand { margin-right: 1.5rem; }
+  .main-nav { gap: 0.45rem; }
+  .main-nav > a, .main-nav .nav-toggle {
+    padding: 0.65rem 1rem;
+    font-size: 0.93rem;
+    position: relative;
+  }
+  /* Soulign� anim� au survol (liens de 1er niveau uniquement) */
+  .main-nav > a::after, .main-nav .nav-toggle::after {
+    content: ""; position: absolute; left: 1rem; right: 1rem; bottom: 0.32rem;
+    height: 2px; border-radius: 2px; background: var(--green);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s var(--ease);
+  }
+  .main-nav > a:hover::after, .main-nav .nav-toggle:hover::after { transform: scaleX(1); }
+  /* Lien actif : pastille pleine */
+  .main-nav a.active { background: var(--green-light); color: var(--green); }
+  .header-actions { gap: 0.6rem; }
+}
+/* �crans moyens : on resserre sans casser */
+@media (min-width: 941px) and (max-width: 1280px) {
+  .brand { margin-right: 0.5rem; }
+  .main-nav { gap: 0.1rem; }
+  .main-nav > a, .main-nav .nav-toggle { padding: 0.55rem 0.6rem; font-size: 0.85rem; }
+  .main-nav > a::after, .main-nav .nav-toggle::after { left: 0.6rem; right: 0.6rem; }
+}

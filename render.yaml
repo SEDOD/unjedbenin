@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: unjedbenin-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: 1
+      # À renseigner dans le dashboard Render :
+      # ADMIN_USERNAME / ADMIN_PASSWORD / DATABASE_URL / MAIL_*
+      # Postgres recommandé (le disque du plan gratuit est ÉPHÉMÈRE :
+      # SQLite + uploads sont perdus à chaque redéploiement).
+      # Décommentez le bloc databases ci-dessous + ajoutez :
+      # - key: DATABASE_URL
+      #   fromDatabase:
+      #     name: unjedbenin-db
+      #     property: connectionString
+
+# databases:
+#   - name: unjedbenin-db
+#     databaseName: unjedbenin
+#     user: unjedbenin

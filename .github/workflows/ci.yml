@@ -1,0 +1,56 @@
+# Intégration continue — UNJED-BENIN
+# Vérifie à chaque push/PR : backend compilable, JS syntaxiquement valide,
+# aucun secret ou base de données versionné par erreur.
+name: CI
+
+on:
+  push:
+    branches: ["main", "eucher/**", "fix/**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  backend:
+    name: Backend (compilation + imports)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compilation des modules
+        run: python -m py_compile backend/app.py backend/models.py backend/emailer.py backend/seed_admins.py
+      - name: Installation et import de l'application
+        run: |
+          pip install -r backend/requirements.txt
+          cd backend && COOKIE_SECURE=0 python -c "import app; print('import app OK', app.app)"
+
+  frontend:
+    name: Frontend (syntaxe JS)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntaxe des scripts
+        run: |
+          for f in assets/js/config.js assets/js/api-client.js assets/js/components.js assets/js/script.js; do
+            node --check "$f" && echo "OK $f"
+          done
+
+  secrets:
+    name: Garde-fous (aucun secret versionné)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Recherche de fichiers sensibles suivis
+        run: |
+          tracked=$(git ls-files | grep -E '(\.db$|\.env$|__pycache__)') || true
+          if [ -n "$tracked" ]; then echo "Fichiers sensibles versionnés :"; echo "$tracked"; exit 1; fi
+          echo "Aucun .db / .env / __pycache__ versionné."
+      - name: Recherche de secrets connus (hors historique assumé)
+        run: |
+          if grep -rn --include='*.py' -E 'Unjedbenin@2025@' backend/ . 2>/dev/null; then
+            echo "Mot de passe historique encore présent dans le code !"; exit 1
+          fi
+          echo "Aucun secret connu dans le code."

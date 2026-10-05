@@ -1,0 +1,12 @@
+# Normalisation des fins de ligne (LF partout) et des binaires.
+# Évite les diffs fantômes entre Windows et Linux/macOS.
+* text=auto eol=lf
+*.jpeg binary
+*.jpg binary
+*.png binary
+*.gif binary
+*.webp binary
+*.pdf binary
+*.mp4 binary
+*.webm binary
+*.mov binary

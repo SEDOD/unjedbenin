@@ -6,14 +6,29 @@
   <meta name="theme-color" content="#0a8a3f" />
   <title>UNJED-BENIN — Engageons la jeunesse pour un Bénin meilleur</title>
   <meta name="description" content="Union Nationale des Jeunes Engagés pour le Développement du Bénin. Formation, leadership, solidarité et citoyenneté au service de la jeunesse béninoise." />
+  <link rel="canonical" href="https://sedod.github.io/unjedbenin/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="UNJED-BENIN — Engageons la jeunesse pour un Bénin meilleur" />
+  <meta property="og:description" content="Formation, leadership, solidarité et citoyenneté au service de la jeunesse béninoise." />
+  <meta property="og:image" content="https://sedod.github.io/unjedbenin/public/images/logo.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="public/images/logo.jpeg"/>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="image" href="public/images/hero_1.jpeg" fetchpriority="high" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
+  <script>
+    // Anti-FOUC : applique le thème avant le premier rendu (la même clé que script.js)
+    try { if (localStorage.getItem("unjed-theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
+  </script>
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
-  <section class="hero">
+  <main id="contenu">
+  <section class="hero" aria-label="Présentation de l'UNJED-BENIN">
   <div class="hero-slides">
     <div class="hero-slide active" style="background-image:url('public/images/hero_1.jpeg')"></div>
     <div class="hero-slide" style="background-image:url('public/images/hero_2.jpeg')"></div>
@@ -32,12 +47,12 @@
       </div>
     </div>
   </div>
-  <div class="hero-indicators">
-    <button class="hero-dot active"></button>
-    <button class="hero-dot"></button>
-    <button class="hero-dot"></button>
-    <button class="hero-dot"></button>
-    <button class="hero-dot"></button>
+  <div class="hero-indicators" role="tablist" aria-label="Choisir la slide">
+    <button class="hero-dot active" type="button" aria-label="Slide 1"></button>
+    <button class="hero-dot" type="button" aria-label="Slide 2"></button>
+    <button class="hero-dot" type="button" aria-label="Slide 3"></button>
+    <button class="hero-dot" type="button" aria-label="Slide 4"></button>
+    <button class="hero-dot" type="button" aria-label="Slide 5"></button>
   </div>
 </section>
 
@@ -52,7 +67,7 @@
         </div>
         <div class="grid grid-3">
           <article class="quicklink reveal">
-            <img src="public/images/formation-real-1.jpg" alt="Formation des jeunes" />
+            <img loading="lazy" decoding="async" src="public/images/formation-real-1.jpg" alt="Formation des jeunes" />
             <div class="quicklink-body">
               <h3 data-en="Who are we?">Qui sommes-nous ?</h3>
               <p data-en="Discover our history, vision, mission and values.">Découvrez notre histoire, notre vision, notre mission et nos valeurs.</p>
@@ -60,7 +75,7 @@
             </div>
           </article>
           <article class="quicklink reveal">
-            <img src="public/images/solidarite.jpeg" alt="Actions de solidarité" />
+            <img loading="lazy" decoding="async" src="public/images/solidarite.jpeg" alt="Actions de solidarité" />
             <div class="quicklink-body">
               <h3 data-en="Our projects">Nos projets</h3>
               <p data-en="Education, leadership, solidarity, culture and environment.">Éducation, leadership, solidarité, culture et environnement.</p>
@@ -68,7 +83,7 @@
             </div>
           </article>
           <article class="quicklink reveal">
-            <img src="public/images/leadership.png" alt="Adhésion et leadership" />
+            <img loading="lazy" decoding="async" src="public/images/leadership.png" alt="Adhésion et leadership" />
             <div class="quicklink-body">
               <h3 data-en="Membership">Adhésion</h3>
               <p data-en="Join a dynamic community and become an active member.">Rejoignez une communauté dynamique et devenez membre actif.</p>
@@ -84,7 +99,7 @@
       <div class="container">
         <div class="split reveal" style="align-items:flex-start;gap:3rem;">
           <div class="split-img" style="flex:0 0 340px;max-width:340px;">
-            <img src="public/images/president_lisson.jpeg" alt="HOUESSOU Lisson, Président Exécutif de l'UNJED-BENIN" style="width:100%;border-radius:16px;object-fit:cover;box-shadow:0 8px 32px rgba(27,122,62,0.18);" />
+            <img loading="lazy" decoding="async" src="public/images/president_lisson.jpeg" alt="HOUESSOU Lisson, Président Exécutif de l'UNJED-BENIN" style="width:100%;border-radius:16px;object-fit:cover;box-shadow:0 8px 32px rgba(27,122,62,0.18);" />
             <div style="text-align:center;margin-top:14px;">
               <strong style="font-family:var(--font-head);font-size:1rem;color:var(--text);display:block;">HOUESSOU Lisson</strong>
               <span style="font-size:0.82rem;color:var(--green);font-weight:600;">Président du Bureau Exécutif National</span>
@@ -146,7 +161,7 @@
         </div>
         <div class="grid grid-3">
           <article class="card news-card reveal">
-            <div class="news-img"><img src="public/images/formation-real-4.jpg" alt="Programme de formation en leadership" /></div>
+            <div class="news-img"><img loading="lazy" decoding="async" src="public/images/formation-real-4.jpg" alt="Programme de formation en leadership" /></div>
             <div class="news-body">
               <span class="news-tag" data-en="Press release">Communiqué</span>
               <div class="news-date">15 <span data-en="May">mai</span> 2026</div>
@@ -154,7 +169,7 @@
             </div>
           </article>
           <article class="card news-card reveal">
-            <div class="news-img"><img src="public/images/assemblee-real-2.jpg" alt="Séminaire de gouvernance associative" /></div>
+            <div class="news-img"><img loading="lazy" decoding="async" src="public/images/assemblee-real-2.jpg" alt="Séminaire de gouvernance associative" /></div>
             <div class="news-body">
               <span class="news-tag" data-en="Event">Événement</span>
               <div class="news-date">22 <span data-en="June">juin</span> 2026</div>
@@ -162,7 +177,7 @@
             </div>
           </article>
           <article class="card news-card reveal">
-            <div class="news-img"><img src="public/images/culture.jpeg" alt="Sortie culturelle" /></div>
+            <div class="news-img"><img loading="lazy" decoding="async" src="public/images/culture.jpeg" alt="Sortie culturelle" /></div>
             <div class="news-body">
               <span class="news-tag" data-en="Report">Reportage</span>
               <div class="news-date">08 <span data-en="July">juillet</span> 2026</div>
@@ -177,17 +192,37 @@
     </section>
 
     <!-- PARTENAIRES -->
-    <section class="section">
+    <section class="section partners">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow" data-en="Our partners">Nos partenaires</span>
           <h2 data-en="Together we build bridges for development">Ensemble, nous bâtissons des ponts pour le développement</h2>
+          <p data-en="Public institutions, universities, local NGOs and international organizations trust us to act for youth.">Institutions publiques, universités, ONG locales et organisations internationales nous font confiance pour agir auprès de la jeunesse.</p>
         </div>
-        <div class="grid grid-4">
-          <div class="partner-logo reveal" data-en="Public institutions">Institutions publiques</div>
-          <div class="partner-logo reveal" data-en="Universities">Structures universitaires</div>
-          <div class="partner-logo reveal" data-en="Local NGOs">ONG locales</div>
-          <div class="partner-logo reveal" data-en="International organizations">Organisations internationales</div>
+        <div class="grid grid-4 partner-cards">
+          <article class="partner-card reveal" style="--i:0">
+            <span class="partner-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V10m4 11V10m4 11V10m4 11V10M3 10l9-7 9 7H3z"/></svg></span>
+            <h3 data-en="Public institutions">Institutions publiques</h3>
+            <p data-en="State &amp; local authorities">État et collectivités</p>
+          </article>
+          <article class="partner-card reveal" style="--i:1">
+            <span class="partner-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 10v6"/></svg></span>
+            <h3 data-en="Academic partners">Structures universitaires</h3>
+            <p data-en="Universities &amp; schools">Universités et écoles</p>
+          </article>
+          <article class="partner-card reveal" style="--i:2">
+            <span class="partner-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+            <h3 data-en="Local NGOs">ONG locales</h3>
+            <p data-en="Grassroots actors">Acteurs de terrain</p>
+          </article>
+          <article class="partner-card reveal" style="--i:3">
+            <span class="partner-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <h3 data-en="International organizations">Organisations internationales</h3>
+            <p data-en="Global cooperation">Coopération mondiale</p>
+          </article>
+        </div>
+        <div class="reveal" style="text-align:center;margin-top:2.2rem;">
+          <a href="partenariats.html" class="partner-cta" data-en="Become a partner">Devenir partenaire <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -209,7 +244,9 @@
 
   <div data-footer></div>
 
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/api-client.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/script.js" defer></script>
 </body>
 </html>

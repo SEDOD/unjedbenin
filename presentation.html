@@ -7,7 +7,8 @@
   <title>Présentation — UNJED-BENIN</title>
   <meta name="description" content="Histoire, vision, mission, valeurs et organisation de l'UNJED-BENIN, organisation apolitique et laïque au service de la jeunesse béninoise." />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
   <style>
     .org-arrow { text-align:center; font-size:1.6rem; color: #aaa; margin: 4px 0; line-height:1; }
     .arrow-h { font-size:1.4rem; color:#aaa; }
@@ -15,9 +16,11 @@
   </style>
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="About">Présentation</span></div>
@@ -541,7 +544,7 @@
   </main>
 
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>`n  <script src="assets/js/api-client.js"></script>`n  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

@@ -30,24 +30,37 @@ MAIL_FROM = os.environ.get("MAIL_FROM", MAIL_USERNAME)
 ADMIN_NOTIFY_EMAIL = os.environ.get("ADMIN_NOTIFY_EMAIL", MAIL_USERNAME)
 
 
+def _cfg():
+    """Lit la config mail à chaque appel (permet de changer les env sans restart d'import)."""
+    server = os.environ.get("MAIL_SERVER")
+    port = int(os.environ.get("MAIL_PORT", "587"))
+    username = os.environ.get("MAIL_USERNAME")
+    password = os.environ.get("MAIL_PASSWORD")
+    mail_from = os.environ.get("MAIL_FROM", username)
+    admin_notify = os.environ.get("ADMIN_NOTIFY_EMAIL", username)
+    return server, port, username, password, mail_from, admin_notify
+
+
 def _is_configured():
-    return all([MAIL_SERVER, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM])
+    server, _, username, password, mail_from, _ = _cfg()
+    return all([server, username, password, mail_from])
 
 
 def send_email(to_address, subject, body):
     """Envoie un email texte simple. Ne lève jamais d'exception vers l'appelant."""
+    server, port, username, password, mail_from, _ = _cfg()
     if not _is_configured():
         print(f"[emailer] Email NON envoyé (config manquante) -> to={to_address} subject={subject}")
         return False
     try:
         msg = MIMEText(body, "plain", "utf-8")
         msg["Subject"] = subject
-        msg["From"] = MAIL_FROM
+        msg["From"] = mail_from
         msg["To"] = to_address
-        with smtplib.SMTP(MAIL_SERVER, MAIL_PORT) as server:
-            server.starttls()
-            server.login(MAIL_USERNAME, MAIL_PASSWORD)
-            server.sendmail(MAIL_FROM, [to_address], msg.as_string())
+        with smtplib.SMTP(server, port, timeout=15) as smtp:
+            smtp.starttls()
+            smtp.login(username, password)
+            smtp.sendmail(mail_from, [to_address], msg.as_string())
         return True
     except Exception as exc:
         print(f"[emailer] Erreur d'envoi vers {to_address}: {exc}")
@@ -55,8 +68,9 @@ def send_email(to_address, subject, body):
 
 
 def notify_admin_new_subscriber(subscriber_email):
+    _, _, _, _, _, admin_notify = _cfg()
     send_email(
-        ADMIN_NOTIFY_EMAIL,
+        admin_notify,
         "Nouvel abonné UNJED-BENIN",
         f"Un nouvel abonné a rejoint la liste : {subscriber_email}",
     )
@@ -73,8 +87,9 @@ def confirm_subscription(subscriber_email):
 
 
 def notify_admin_new_membership(applicant_name, applicant_email):
+    _, _, _, _, _, admin_notify = _cfg()
     send_email(
-        ADMIN_NOTIFY_EMAIL,
+        admin_notify,
         "Nouvelle demande d'adhésion — UNJED-BENIN",
         f"Nouvelle demande d'adhésion reçue de {applicant_name} ({applicant_email}).",
     )

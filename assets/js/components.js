@@ -9,12 +9,19 @@
 
   const NAV = [
     { href: "index.html", fr: "Accueil", en: "Home" },
-    { href: "presentation.html", fr: "Présentation", en: "About" },
-    { href: "projets.html", fr: "Projets &amp; Activités", en: "Projects &amp; Activities" },
-    { href: "actualites.html", fr: "Actualités", en: "News" },
+    { label_fr: "L'Union", label_en: "The Union", children: [
+      { href: "presentation.html", fr: "Présentation", en: "About" },
+      { href: "presentation.html#organigramme", fr: "Organigramme", en: "Org Chart" },
+      { href: "statuts.html", fr: "Statuts", en: "Statutes" },
+    ] },
+    { label_fr: "Nos Actions", label_en: "Our Actions", children: [
+      { href: "projets.html", fr: "Projets &amp; Activités", en: "Projects &amp; Activities" },
+      { href: "actualites.html", fr: "Actualités", en: "News" },
+      { href: "multimedia.html", fr: "Multimédia", en: "Media" },
+      { href: "jeu.html", fr: "Jeu éducatif", en: "Educational Game" },
+    ] },
     { href: "adhesion.html", fr: "Adhésion", en: "Membership" },
     { href: "partenariats.html", fr: "Partenariats", en: "Partnerships" },
-    { href: "multimedia.html", fr: "Multimédia", en: "Media" },
     { href: "contact.html", fr: "Contact", en: "Contact" },
   ];
 
@@ -50,10 +57,21 @@
     whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.6 15.07L2 22l5.05-1.32A10 10 0 1 0 12 2zm0 18.18a8.16 8.16 0 0 1-4.16-1.14l-.3-.18-3 .79.8-2.92-.19-.3A8.18 8.18 0 1 1 12 20.18z"/></svg>',
   };
 
+  const CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+
   function buildHeader() {
-    const links = NAV.map(
-      (n) => `<a href="${n.href}" data-en="${n.en}">${n.fr}</a>`
-    ).join("");
+    const links = NAV.map((n) => {
+      if (n.children) {
+        const subs = n.children.map(
+          (c) => `<a href="${c.href}" data-en="${c.en}">${c.fr}</a>`
+        ).join("");
+        return `<div class="nav-group">` +
+          `<button type="button" class="nav-toggle" aria-expanded="false" aria-haspopup="true">` +
+            `<span data-en="${n.label_en}">${n.label_fr}</span>${CARET}</button>` +
+          `<div class="nav-sub">${subs}</div></div>`;
+      }
+      return `<a href="${n.href}" data-en="${n.en}">${n.fr}</a>`;
+    }).join("") + `<a href="adhesion.html" class="btn btn-green nav-cta-mobile" data-en="Join Us">Devenir membre</a>`;
 
     // Inject Font Awesome if not already present
     if (!document.querySelector('link[href*="font-awesome"]')) {
@@ -64,6 +82,7 @@
     }
 
     return `
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
     <header class="site-header">
       <div class="flag-strip"><span class="s-green"></span><span class="s-yellow"></span><span class="s-red"></span></div>
       <div class="container header-inner">
@@ -76,6 +95,7 @@
         </a>
         <nav class="main-nav" aria-label="Navigation principale">${links}</nav>
         <div class="header-actions">
+          <a href="adhesion.html" class="btn btn-green nav-cta" data-en="Join Us">Devenir membre</a>
           <button class="icon-btn lang-btn" data-lang-toggle type="button" aria-label="Changer de langue">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             <span class="lang-current">FR</span>
@@ -137,6 +157,8 @@
               <li><a href="adhesion.html" data-en="Become a member">Devenir membre</a></li>
               <li><a href="jeu.html" data-en="Educational game">Jeu éducatif</a></li>
               <li><a href="administration.html" data-en="Administration">Administration</a></li>
+              <li><a href="statuts.html" data-en="Statutes">Statuts</a></li>
+              <li><a href="politique-confidentialite.html" data-en="Privacy policy">Politique de confidentialité</a></li>
             </ul>
           </div>
           <div>
@@ -159,11 +181,11 @@
 
   function buildCookie() {
     return `
-    <div class="cookie-banner" role="dialog" aria-label="Information cookies">
-      <p data-en="<strong>Cookies.</strong> This site uses cookies to improve your experience and analyze traffic. By continuing to browse, you accept their use."><strong>Cookies.</strong> Ce site utilise des cookies pour améliorer votre expérience et analyser le trafic. En poursuivant votre navigation, vous acceptez leur utilisation.</p>
+    <div class="cookie-banner" role="dialog" aria-modal="false" aria-live="polite" aria-label="Consentement cookies" aria-describedby="cookie-desc">
+      <p id="cookie-desc" data-en="<strong>Cookies.</strong> This site uses cookies to improve your experience and analyze traffic. By continuing to browse, you accept their use. <a class=&quot;cookie-link&quot; href=&quot;politique-confidentialite.html&quot;>Learn more</a>"><strong>Cookies.</strong> Ce site utilise des cookies pour améliorer votre expérience et analyser le trafic. En poursuivant votre navigation, vous acceptez leur utilisation. <a class="cookie-link" href="politique-confidentialite.html">En savoir plus</a></p>
       <div class="cookie-actions">
-        <button class="btn btn-red" data-cookie-close type="button" data-en="Refuse">Refuser</button>
-        <button class="btn btn-green" data-cookie-close type="button" data-en="Accept">Accepter</button>
+        <button class="btn btn-outline" data-cookie-choice="refuse" type="button" data-en="Refuse">Refuser</button>
+        <button class="btn btn-green" data-cookie-choice="accept" type="button" data-en="Accept">Accepter</button>
       </div>
     </div>`;
   }
@@ -189,19 +211,31 @@
     if (yr) yr.textContent = new Date().getFullYear();
 
     // Formulaire d'abonnement (footer) -> appelle le backend
-
-    const SUBSCRIBE_API_BASE = "https://unjedbenin.onrender.com";
-    const subForm = document.getElementById("footer-subscribe-form");
+    // Utilise le client partagé window.UNJED.api s'il est chargé (assets/js/api-client.js),
+    // sinon repli direct sur fetch avec l'URL centrale window.UNJED_CONFIG.API_BASE.
+    var SUBSCRIBE_API_BASE =
+      (window.UNJED && typeof window.UNJED.apiBase === "function" && window.UNJED.apiBase()) ||
+      (window.UNJED_CONFIG && window.UNJED_CONFIG.API_BASE) ||
+      "https://unjedbenin.onrender.com";
+    var subForm = document.getElementById("footer-subscribe-form");
     if (subForm) {
-      subForm.addEventListener("submit", (e) => {
+      subForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const emailInput = document.getElementById("footer-subscribe-email");
-        const msg = document.getElementById("footer-subscribe-msg");
-        fetch(SUBSCRIBE_API_BASE + "/api/subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: emailInput.value.trim() }),
-        })
+        var emailInput = document.getElementById("footer-subscribe-email");
+        var msg = document.getElementById("footer-subscribe-msg");
+        var email = (emailInput.value || "").trim();
+        var doFetch =
+          (window.UNJED && window.UNJED.api && window.UNJED.api.postJSON) ||
+          function (path, payload) {
+            return fetch(SUBSCRIBE_API_BASE + path, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            }).then(function (res) {
+              return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+            });
+          };
+        doFetch("/api/subscribe", { email: email })
           .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
           .then(({ ok, data }) => {
             msg.style.display = "block";

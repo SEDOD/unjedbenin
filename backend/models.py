@@ -1,5 +1,8 @@
 """
 Modèles de base de données pour le backend UNJED-BENIN.
+
+Chaque classe = une table. `to_dict()` expose uniquement les champs
+nécessaires au frontend (jamais de hash de mot de passe, jamais de secret).
 """
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -33,13 +36,13 @@ class Post(db.Model):
     __tablename__ = "posts"
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    body = db.Column(db.Text, nullable=True)
+    title = db.Column(db.String(200), nullable=False)          # titre affiché (plafond vérifié côté route)
+    body = db.Column(db.Text, nullable=True)                   # contenu libre (plafond vérifié côté route)
     post_type = db.Column(db.String(30), nullable=False, default="announcement")
-    visibility = db.Column(db.String(10), nullable=False, default="public")
-    file_url = db.Column(db.String(500), nullable=True)
-    original_filename = db.Column(db.String(255), nullable=True)
-    external_url = db.Column(db.String(500), nullable=True)
+    visibility = db.Column(db.String(10), nullable=False, default="public")  # "public" ou "members"
+    file_url = db.Column(db.String(500), nullable=True)        # chemin interne généré (UUID), jamais le nom d'origine
+    original_filename = db.Column(db.String(255), nullable=True)  # nom d'origine assaini, pour le téléchargement
+    external_url = db.Column(db.String(500), nullable=True)    # lien externe http(s) uniquement (validé côté route)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey("admins.id"), nullable=True)
 
@@ -73,7 +76,7 @@ class Subscriber(db.Model):
 
 
 class Member(db.Model):
-    """Demandes d'adhésion en ligne."""
+    """Demandes d'adhésion en ligne (formulaire public, modérées par le bureau)."""
     __tablename__ = "members"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -83,7 +86,7 @@ class Member(db.Model):
     phone = db.Column(db.String(50), nullable=False)
     country = db.Column(db.String(100), nullable=False)
     dept_or_region = db.Column(db.String(100), nullable=True)
-    profile = db.Column(db.String(100), nullable=False)
+    profile = db.Column(db.String(100), nullable=True, default="")
     motivation = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -103,7 +106,7 @@ class Member(db.Model):
 
 
 class ContactMessage(db.Model):
-    """Messages de la page Contact."""
+    """Messages du formulaire Contact (lecture réservée aux administrateurs)."""
     __tablename__ = "contact_messages"
 
     id = db.Column(db.Integer, primary_key=True)

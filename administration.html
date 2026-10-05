@@ -8,12 +8,15 @@
   <meta name="description" content="Espace interne réservé aux administrateurs de l'UNJED-BENIN : publication d'annonces, documents et médias." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="Administration">Administration</span></div>
@@ -117,14 +120,18 @@
   </main>
 
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
   <script>
   (function () {
     "use strict";
 
    
-    var API_BASE = "https://unjedbenin.onrender.com";
+    var API_BASE = (window.UNJED && typeof window.UNJED.apiBase === "function" && window.UNJED.apiBase())
+      || (window.UNJED_CONFIG && window.UNJED_CONFIG.API_BASE)
+      || "https://unjedbenin.onrender.com";
 
     var loginPanel = document.getElementById("admin-login");
     var spacePanel = document.getElementById("admin-space");
@@ -138,8 +145,10 @@
     var postsList = document.getElementById("posts-list");
     var subscribersList = document.getElementById("subscribers-list");
 
-    if (API_BASE.indexOf("unjedbenin") !== -1) {
+    if (API_BASE.indexOf("127.0.0.1") === -1 && API_BASE.indexOf("localhost") === -1) {
+      // En production le backend Render peut mettre ~60s à sortir de veille : on prévient.
       apiWarning.style.display = "block";
+      apiWarning.textContent = "Connexion au serveur sécurisé… (le premier chargement peut prendre ~1 minute si le serveur sort de veille).";
     }
 
     function api(path, options) {
@@ -207,7 +216,7 @@
       }
       posts.forEach(function (post) {
         var card = document.createElement("div");
-       card.className = "card.reveal";
+       card.className = "card reveal";
 
         var mediaHtml = "";
         if (post.file_url) {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0a8a3f" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page introuvable (404) — UNJED-BENIN</title>
+  <meta name="description" content="Page introuvable. Retournez à l'accueil du site de l'UNJED-BENIN." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="public/images/logo.jpeg"/>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
+  <script>
+    try { if (localStorage.getItem("unjed-theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
+  </script>
+</head>
+<body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
+  <div data-header></div>
+
+  <main id="contenu">
+    <section class="section">
+      <div class="container narrow" style="text-align:center;">
+        <span class="eyebrow">Erreur 404</span>
+        <h1 style="font-size:clamp(2.4rem,7vw,4rem);">Page introuvable</h1>
+        <p style="margin:1rem auto 2rem;max-width:480px;">La page que vous cherchez n'existe pas ou a été déplacée. Retournez à l'accueil ou contactez-nous si le problème persiste.</p>
+        <div class="hero-btns" style="justify-content:center;opacity:1;animation:none;">
+          <a href="index.html" class="btn btn-green">Retour à l'accueil</a>
+          <a href="contact.html" class="btn btn-outline">Nous contacter</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

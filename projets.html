@@ -7,12 +7,15 @@
   <title>Projets &amp; Activités — UNJED-BENIN</title>
   <meta name="description" content="Découvrez les projets et activités de l'UNJED-BENIN : éducation, leadership, solidarité, culture et environnement au service de la jeunesse béninoise." />
   <link rel="icon" href="public/images/logo.jpeg" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
+  <!-- Header, footer et cookies : injectés automatiquement par
+     assets/js/components.js | comportements : assets/js/script.js. -->
   <div data-header></div>
 
-  <main>
+  <main id="contenu">
     <section class="page-hero">
       <div class="container">
         <div class="breadcrumb"><a href="index.html" data-en="Home">Accueil</a> / <span data-en="Projects &amp; Activities">Projets &amp; Activités</span></div>
@@ -95,10 +98,10 @@
           <h2 data-en="Concrete results across the country">Des résultats concrets à travers le pays</h2>
         </div>
         <div class="grid grid-4">
-          <div class="stat-card reveal"><div class="stat-num">1 000+</div><div class="stat-label" data-en="Young people trained">Jeunes formés</div></div>
-          <div class="stat-card reveal"><div class="stat-num">50+</div><div class="stat-label" data-en="Actions carried out">Actions menées</div></div>
-          <div class="stat-card reveal"><div class="stat-num">12</div><div class="stat-label" data-en="Departments covered">Départements couverts</div></div>
-          <div class="stat-card reveal"><div class="stat-num">40+</div><div class="stat-label" data-en="Local branches">Antennes locales</div></div>
+          <div class="stat-card reveal"><div class="stat-num" data-count="1000" data-suffix="+">1 000+</div><div class="stat-label" data-en="Young people trained">Jeunes formés</div></div>
+          <div class="stat-card reveal"><div class="stat-num" data-count="50" data-suffix="+">50+</div><div class="stat-label" data-en="Actions carried out">Actions menées</div></div>
+          <div class="stat-card reveal"><div class="stat-num" data-count="12" data-suffix="">12</div><div class="stat-label" data-en="Departments covered">Départements couverts</div></div>
+          <div class="stat-card reveal"><div class="stat-num" data-count="40" data-suffix="+">40+</div><div class="stat-label" data-en="Local branches">Antennes locales</div></div>
         </div>
       </div>
     </section>
@@ -118,7 +121,7 @@
   </main>
 
   <div data-footer></div>
-  <script src="components.js"></script>
-  <script src="script.js"></script>
+  <script src="assets/js/config.js"></script>`n  <script src="assets/js/api-client.js"></script>`n  <script src="assets/js/components.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
