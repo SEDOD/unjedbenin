@@ -2918,3 +2918,14 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   }
   .hero-content-inner > * { text-align: center; }
 }
+
+/* Hero mobile : titre jaune contenu sur sa ligne, marges de sécurité */
+@media (max-width: 560px) {
+  .hero-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .hero-content h1 span { display: block; }
+}
