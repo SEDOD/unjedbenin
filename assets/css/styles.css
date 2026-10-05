@@ -3104,3 +3104,35 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
   .hero-content h1 span { font-size: 1.9rem; }
   .hero-indicators { bottom: 18px; }
 }
+
+/* ============================================================
+   v2.3 — footer mobile premium (séparateurs, cibles tactiles,
+   marque centrée, formulaire pleine largeur)
+   ============================================================ */
+@media (max-width: 560px) {
+  .site-footer { padding-top: 2.5rem; }
+  .footer-grid { gap: 0; }
+  .footer-grid > div { padding: 1.4rem 0; }
+  .footer-grid > div + div { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  /* Bloc marque centré */
+  .footer-grid > div:first-child { text-align: center; padding-top: 0; }
+  .footer-brand { justify-content: center; }
+  .footer-grid > div:first-child p { text-align: center; }
+  .socials { justify-content: center; }
+  .socials a { width: 44px; height: 44px; }
+  /* Formulaire newsletter empilé pleine largeur */
+  #footer-subscribe-form { flex-direction: column; align-items: stretch; }
+  #footer-subscribe-form input { min-width: 0; width: 100%; padding: 0.85rem 1rem; }
+  #footer-subscribe-form .btn { justify-content: center; }
+  /* Liens : cibles tactiles généreuses */
+  .footer-links li { margin-bottom: 0; }
+  .footer-links a {
+    display: flex; align-items: center;
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+  }
+  .site-footer h4 { margin-bottom: 0.4rem; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .footer-contact li { padding: 0.35rem 0; }
+  .footer-bottom { text-align: center; }
+  .footer-bottom .container { padding-inline: 16px; }
+}
