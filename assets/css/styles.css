@@ -2895,3 +2895,15 @@ html[data-theme="dark"] { --scrim: rgba(0, 0, 0, 0.55); }
     background: linear-gradient(180deg, rgba(10, 25, 16, 0.62) 0%, rgba(10, 25, 16, 0.5) 40%, rgba(6, 42, 20, 0.84) 100%);
   }
 }
+
+/* Hero mobile : badge jaune maquette (fond uni, texte sombre) */
+@media (max-width: 560px) {
+  .hero-eyebrow {
+    background: var(--yellow);
+    color: #16201b;
+    border-color: transparent;
+    font-weight: 800;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
