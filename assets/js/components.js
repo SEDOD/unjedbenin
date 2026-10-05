@@ -93,7 +93,13 @@
             <span class="brand-tagline">Inclusion · Solidarité · Excellence</span>
           </span>
         </a>
-        <nav class="main-nav" aria-label="Navigation principale">${links}</nav>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <div class="drawer-head" aria-hidden="false">
+            <span class="drawer-brand"><img src="public/images/logo.jpeg" alt="" />UNJED-BENIN</span>
+            <button type="button" class="icon-btn drawer-close" data-close-menu aria-label="Fermer le menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </button>
+          </div>${links}</nav>
         <div class="header-actions">
           <a href="adhesion.html" class="btn btn-green nav-cta" data-en="Join Us">Devenir membre</a>
           <button class="icon-btn lang-btn" data-lang-toggle type="button" aria-label="Changer de langue">

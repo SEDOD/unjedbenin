@@ -2761,3 +2761,56 @@ body.nav-open { overflow: hidden; }
   .main-nav > a, .main-nav .nav-toggle { padding: 0.55rem 0.6rem; font-size: 0.85rem; }
   .main-nav > a::after, .main-nav .nav-toggle::after { left: 0.6rem; right: 0.6rem; }
 }
+
+/* ============================================================
+   v1.7 — mobile premium : drawer opaque + tête de menu, hero lisible
+   ============================================================ */
+
+/* ---- 1. Drawer : fond massif, tête avec fermeture, séparateurs ---- */
+.drawer-head { display: none; }
+@media (max-width: 940px) {
+  .main-nav {
+    background: var(--surface);
+    background-color: var(--surface);
+    opacity: 1;
+    z-index: 1002;
+  }
+  .drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.2rem 0 0.9rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .drawer-brand {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-family: var(--font-head); font-weight: 800; font-size: 0.95rem;
+    color: var(--green); letter-spacing: 0.01em;
+    min-width: 0;
+  }
+  .drawer-brand img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .main-nav > a, .main-nav > .nav-group { border-bottom: 1px solid var(--border); }
+  .main-nav > a { border-radius: 0; }
+  .main-nav .nav-group.open { border-bottom-color: transparent; }
+  .main-nav a.active { background: var(--green-light); border-radius: 10px; }
+  .nav-cta-mobile { border-bottom: 0; margin-top: 1.1rem; }
+  .nav-overlay { z-index: 1001; }
+}
+
+/* ---- 2. Hero mobile : boutons plein-largeur, texte toujours lisible ---- */
+@media (max-width: 560px) {
+  .hero-slide::after {
+    background: linear-gradient(180deg, rgba(10, 25, 16, 0.55) 0%, rgba(10, 25, 16, 0.35) 35%, rgba(6, 42, 20, 0.78) 100%);
+  }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.12em; }
+  .hero-content h1 { text-wrap: balance; }
+  .hero-btns { flex-direction: column; align-items: stretch; }
+  .hero-btns .btn { justify-content: center; width: 100%; }
+}
+
+/* Correctif : pas de filet sous le bouton CTA du drawer */
+@media (max-width: 940px) {
+  .main-nav > a.nav-cta-mobile { border-bottom: 0; border-radius: 999px; }
+}

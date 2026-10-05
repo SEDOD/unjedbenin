@@ -142,6 +142,7 @@
         isMenuOpen() ? closeMenu() : openMenu();
         return;
       }
+      if (ev.target.closest("[data-close-menu]")) { closeMenu(); return; }
       if (ev.target.closest(".nav-toggle")) {
         toggleDropdown(ev.target.closest(".nav-toggle"));
         return;
