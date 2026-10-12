@@ -23,3 +23,6 @@ Thumbs.db
 # Temporaires
 *.log
 *.tmp
+
+# Journal de conversation local — JAMAIS versionné ni poussé
+journal-conversation/

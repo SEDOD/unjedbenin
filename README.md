@@ -15,9 +15,10 @@
 ## Description
 
 Site vitrine institutionnel de l'**UNJED-BÉNIN** (organisation apolitique et laïque) :
-histoire, vision, mission, valeurs, organigramme, 5 piliers d'action
-(Éducation & Formation, Leadership & Citoyenneté, Insertion & Solidarité,
-Culture & Environnement), actualités dynamiques, adhésion en ligne, contact,
+histoire, vision, mission, valeurs, organigramme, 6 domaines d'intervention
+(Éducation et Formation, Leadership et Engagement citoyen,
+Insertion économique et socioprofessionnelle, Solidarité et Inclusion,
+Culture, Sport et Environnement, Droits humains et Santé), actualités dynamiques, adhésion en ligne, contact,
 multimédia, jeu éducatif, administration.
 
 ## Fonctionnalités
@@ -25,7 +26,7 @@ multimédia, jeu éducatif, administration.
 - **Accueil** : hero slider, mot du Président, domaines d'action, compteurs animés,
   actualités, partenaires premium, contact.
 - **Présentation** : histoire, vision, mission, valeurs, organigramme + Bureau Exécutif.
-- **Projets & activités** : 5 piliers + chiffres d'impact animés au scroll.
+- **Projets & activités** : 6 piliers + chiffres d'impact animés au scroll.
 - **Actualités** : contenu dynamique depuis l'API (`GET /api/posts?visibility=public`),
   newsletter câblée au backend.
 - **Adhésion** : formulaire réel → `POST /api/adhesion` (repli Web3Forms si backend en veille).

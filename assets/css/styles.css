@@ -3810,3 +3810,30 @@ html[data-theme="dark"] .icon-teal { background: rgba(22, 160, 133, 0.2); color:
 html[data-theme="dark"] .icon-blue { background: rgba(41, 128, 185, 0.22); color: #5dade2; }
 .icon-orange { background: rgba(230, 126, 34, 0.15); color: #b45a1b; }
 html[data-theme="dark"] .icon-orange { background: rgba(230, 126, 34, 0.22); color: #f0a35e; }
+
+/* ============================================================
+   v2.7 — Identité UNJED-BENIN : UNJED en vert, BENIN en rouge
+   Partout où le nom de l'ONG est mis en lumière (header, hero,
+   footer, drawer mobile). Le vert reste lisible sur fond clair,
+   on éclaircit les deux teintes sur fonds sombres (hero/footer).
+   ============================================================ */
+/* Header (fond clair) + drawer */
+.brand-name .brand-unjed { color: var(--green); }
+.brand-name .brand-benin { color: var(--red); }
+.drawer-brand .brand-unjed { color: var(--green); }
+.drawer-brand .brand-benin { color: var(--red); }
+/* Header en mode sombre */
+html[data-theme="dark"] .brand-name .brand-unjed { color: #2ecc71; }
+html[data-theme="dark"] .brand-name .brand-benin { color: #ff5a5a; }
+html[data-theme="dark"] .drawer-brand .brand-unjed { color: #2ecc71; }
+html[data-theme="dark"] .drawer-brand .brand-benin { color: #ff5a5a; }
+/* Hero (fond image sombre) : écrase l'ancien jaune unique */
+.hero-content h1 span .brand-unjed,
+.hero-content h1 .brand-unjed { color: #2ecc71; }
+.hero-content h1 span .brand-benin,
+.hero-content h1 .brand-benin { color: #ff4d5e; }
+/* Footer premium (fond sombre) : écrase l'ancien blanc/jaune */
+.site-footer.footer-v3 .footer-logo-text h2 .brand-unjed { color: #2ecc71; }
+.site-footer.footer-v3 .footer-logo-text h2 .brand-benin { color: #e74c3c; }
+.site-footer.footer-v3 .footer-bottom-left p .footer-org .brand-unjed { color: #2ecc71; }
+.site-footer.footer-v3 .footer-bottom-left p .footer-org .brand-benin { color: #e74c3c; }

@@ -77,13 +77,13 @@
         <a href="index.html" class="brand" aria-label="UNJED-BENIN accueil">
           <img src="public/images/logo.jpeg" alt="Logo UNJED-BENIN" />
           <span class="brand-text">
-            <span class="brand-name">UNJED-BENIN</span>
+            <span class="brand-name"><span class="brand-unjed">UNJED-</span><span class="brand-benin">BENIN</span></span>
             <span class="brand-tagline">Inclusion · Solidarité · Excellence</span>
           </span>
         </a>
         <nav class="main-nav" aria-label="Navigation principale">
           <div class="drawer-head" aria-hidden="false">
-            <span class="drawer-brand"><img src="public/images/logo.jpeg" alt="" />UNJED-BENIN</span>
+            <span class="drawer-brand"><img src="public/images/logo.jpeg" alt="" /><span class="brand-unjed">UNJED-</span><span class="brand-benin">BENIN</span></span>
             <button type="button" class="icon-btn drawer-close" data-close-menu aria-label="Fermer le menu">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
             </button>
@@ -149,7 +149,7 @@
             <div class="footer-logo">
               <img src="public/images/logo.jpeg" alt="Logo UNJED-BENIN" class="footer-logo-img" loading="lazy" />
               <div class="footer-logo-text">
-                <h2>UNJED-<span>BENIN</span></h2>
+                <h2><span class="brand-unjed">UNJED-</span><span class="brand-benin">BENIN</span></h2>
                 <div class="tagline">Inclusion · Solidarité · Excellence</div>
               </div>
             </div>
@@ -211,7 +211,7 @@
         </div>
         <div class="footer-bottom">
           <div class="footer-bottom-left">
-            <p>© <span id="year"></span> <span>UNJED-BENIN</span> — <span data-en="All rights reserved.">Tous droits réservés.</span></p>
+            <p>© <span id="year"></span> <span class="footer-org"><span class="brand-unjed">UNJED-</span><span class="brand-benin">BENIN</span></span> — <span data-en="All rights reserved.">Tous droits réservés.</span></p>
           </div>
           <div class="footer-bottom-links">
             <a href="politique-confidentialite.html" data-en="Privacy">Confidentialité</a>
